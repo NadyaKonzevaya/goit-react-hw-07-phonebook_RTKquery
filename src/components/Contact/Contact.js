@@ -1,14 +1,14 @@
-import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/operations';
 import { Button } from 'components/ContactList/ContactList.styled';
+import { useDeleteContactMutation } from 'redux/contactsAPI';
 
 export const Contact = ({ contact }) => {
-  const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteContact(contact.id));
+  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
   return (
     <>
       {contact.name}: {contact.phone}
-      <Button onClick={handleDelete}>Delete</Button>
+      <Button onClick={() => deleteContact(contact.id)} disabled={isDeleting}>
+        Delete
+      </Button>
     </>
   );
 };

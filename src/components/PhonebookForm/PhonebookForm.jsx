@@ -3,7 +3,8 @@ import * as yup from "yup";
 import PropTypes from "prop-types";
 import { Label, Button } from "./PhonebookForm.styled";
 import styled from "styled-components";
-import { addContact } from "redux/operations";
+// import { addContact } from "redux/operations";
+import { useAddContactMutation } from "redux/contactsAPI";
 import { useDispatch } from "react-redux";
 
 const InputName = styled(Field)`
@@ -39,12 +40,13 @@ let schema = yup.object().shape({
 });
 
 const PhonebookForm = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const [addContact] = useAddContactMutation();
 
     const handleSubmit = (values, {resetForm}) => {
         const contact = {  name: values.name, phone: values.number };
         console.log(contact);
-        dispatch(addContact(contact));
+        addContact(contact);
         resetForm();
     }
 
